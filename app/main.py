@@ -26,7 +26,8 @@ def chat_gpt():
     value = r.get(msg)
     if not value:
         value = OpenAI.call(msg)
-        r.set(msg, value)
+        if not value:
+            r.set(msg, value)
     ding.call(value)
 
 

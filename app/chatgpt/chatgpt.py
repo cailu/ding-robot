@@ -17,7 +17,7 @@ class OpenAI(object):
         data = dict(
             model="text-davinci-003",
             prompt=tips,
-            temperature=0.6,
+            temperature=0.8,
             stream=False,
             max_tokens=1024,
             top_p=1,
@@ -25,8 +25,12 @@ class OpenAI(object):
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-        resp = requests.post(url, headers=headers, json=data)
-        return resp.json()['choices'][0]['text']
+        try:
+            resp = requests.post(url, headers=headers, json=data)
+            return resp.json()['choices'][0]['text']
+        except Exception as e:
+            print(e)
+            return None
 
     @staticmethod
     def parse(text):

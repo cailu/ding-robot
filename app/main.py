@@ -5,6 +5,7 @@ import redis
 from config import config
 from dingtalk.dingtalk import DingTalk
 from chatgpt.chatgpt import OpenAI
+from config.native import get_one_msg
 
 app = flask.Flask(__name__)
 ding = DingTalk()
@@ -23,7 +24,7 @@ def chat_gpt():
     if not ding.check_token(header):
         return 'failed'
     msg = ding.get_msg(data)
-    ding.call("我太弱了。。")
+    ding.call(get_one_msg())
     return "success"
     value = r.get(msg)
     if not value:

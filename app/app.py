@@ -1,6 +1,7 @@
 import uuid
 import flask
 from config import config
+from dingtalk.dingtalk import DingTalk
 
 app = flask.Flask(__name__)
 
@@ -14,10 +15,10 @@ def home():
 def chatgpt():
     header = flask.request.headers
     data = flask.request.get_json()
-    print("header", header)
-    print("data", data)
-    app.logger.info(data)
-    return 'success'
+    if not DingTalk.check_token(header):
+        return 'failed'
+    msg = DingTalk.get_msg(data)
+    DingTalk.call("好啊好啊, " + msg)
 
 
 if __name__ == '__main__':

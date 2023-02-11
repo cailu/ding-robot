@@ -11,11 +11,22 @@ from app.config import config
 class DingTalk(object):
     SIGN_SECRET = os.environ.get(config.DING_ROBOT_SIGN_SECRET)
     BASE_URL = os.environ.get(config.DING_ROBOT_URL)
+    TOKEN = os.environ.get(config.DING_TOKEN)
 
-    def call(self, msg):
-        url = self.gen_url()
-        data = self.gen_text_data(msg)
+    @staticmethod
+    def call(msg):
+        url = DingTalk.gen_url()
+        data = DingTalk.gen_text_data(msg)
         requests.post(url, json=data)
+
+    @staticmethod
+    def check_token(header):
+        token = header.get('Token')
+        return DingTalk.TOKEN == token
+
+    @staticmethod
+    def get_msg(data):
+        return data.get('text', {}).get('content')
 
     @staticmethod
     def gen_text_data(msg):

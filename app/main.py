@@ -23,6 +23,8 @@ def chat_gpt():
     if not ding.check_token(header):
         return 'failed'
     msg = ding.get_msg(data)
+    ding.call("我太弱了。。")
+    return "success"
     value = r.get(msg)
     if not value:
         value = OpenAI.call(msg)

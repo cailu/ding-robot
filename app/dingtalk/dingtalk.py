@@ -5,7 +5,7 @@ import hashlib
 import base64
 import urllib.parse
 import requests
-from app.config import config
+from config import config
 
 
 class DingTalk(object):

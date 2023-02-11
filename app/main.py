@@ -4,6 +4,7 @@ from config import config
 from dingtalk.dingtalk import DingTalk
 
 app = flask.Flask(__name__)
+ding = DingTalk()
 
 
 @app.route('/', methods=['GET', 'POST', 'HEAD'])
@@ -15,10 +16,10 @@ def home():
 def chatgpt():
     header = flask.request.headers
     data = flask.request.get_json()
-    if not DingTalk.check_token(header):
+    if not ding.check_token(header):
         return 'failed'
-    msg = DingTalk.get_msg(data)
-    DingTalk.call("好啊好啊, " + msg)
+    msg = ding.get_msg(data)
+    ding.call("好啊好啊, " + msg)
 
 
 if __name__ == '__main__':

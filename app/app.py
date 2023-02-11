@@ -1,5 +1,6 @@
 import uuid
 import flask
+import config
 
 app = flask.Flask(__name__)
 
@@ -19,5 +20,6 @@ def chatgpt():
 
 
 if __name__ == '__main__':
+    config.check_config()
     app.run(host='0.0.0.0', port=5000)
 

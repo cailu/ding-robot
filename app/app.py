@@ -1,6 +1,6 @@
 import uuid
 import flask
-import config
+from config import config
 
 app = flask.Flask(__name__)
 
@@ -14,8 +14,9 @@ def home():
 def chatgpt():
     header = flask.request.headers
     data = flask.request.get_json()
-    print("header:", header)
-    print("data:", data)
+    print("header", header)
+    print("data", data)
+    app.logger.info(data)
     return 'success'
 
 
